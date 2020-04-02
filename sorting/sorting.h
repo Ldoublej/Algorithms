@@ -66,7 +66,31 @@ void insertion(vector<int> & v)
     }
 }
 
+void shell(vector<int> & v)
+{
+    int n = v.size();
+    int h = 1;
 
+    while(h < n/3) h = 3*h + 1;
+    cout << h << endl;
 
+    while(h >= 1)
+    {
+        for(int i = h;i < v.size();++i)
+        {
+            int key = v.at(i);
+            int j = i - h;
+            for(;j >= 0;j -=h)
+            {
+                if(v.at(j) > key)
+                    v.at(j+h) = v.at(j);
+                else
+                    break;
+            }
+            v.at(j+h) = key;
+        }
+        h /= 3;
+    }
+}
 
 #endif //SORTING_SORTING_H
