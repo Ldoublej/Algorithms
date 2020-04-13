@@ -2,8 +2,8 @@
 // Created by ldoublej on 2020/4/1.
 //
 
-#ifndef SORTING_SORTING_H
-#define SORTING_SORTING_H
+#ifndef SORT_SORT_H
+#define SORT_SORT_H
 
 #include <iostream>
 #include <vector>
@@ -45,6 +45,7 @@ bool is_sorted(const vector<int> & v)
 
 
 
+
 void selection(vector<int> & v)
 {
     for(int i = 0;i < v.size();++i)
@@ -57,7 +58,6 @@ void selection(vector<int> & v)
         }
     }
 }
-//iterator edition
 void selection(vector<int> & v,pos lo,pos hi)
 {
     while(lo <= hi)
@@ -70,6 +70,7 @@ void selection(vector<int> & v,pos lo,pos hi)
         lo++;
     }
 }
+
 
 void insertion(vector<int> & v)
 {
@@ -84,7 +85,6 @@ void insertion(vector<int> & v)
         v.at(j+1) = current;
     }
 }
-//iterator edition
 void insertion(vector<int> & v,pos lo,pos hi)
 {
     for(pos i = lo + 1;i <= hi;++i)
@@ -98,7 +98,9 @@ void insertion(vector<int> & v,pos lo,pos hi)
         *(j+1) = current;
     }
 }
-//iterator edition
+
+
+
 void shell(vector<int> & v,pos lo,pos hi)
 {
     int n = hi - lo;
@@ -121,7 +123,6 @@ void shell(vector<int> & v,pos lo,pos hi)
         h /= 3;
     }
 }
-
 void shell(vector<int> & v)
 {
     int n = v.size();
@@ -185,6 +186,7 @@ void merge(vector<int> & v,pos b,pos e)
     merge_vector(v,b,m,e);
 }
 
+
 void quick_3way(vector<int> & v,pos lo,pos hi)
 {
     if(lo >= hi) return;
@@ -221,8 +223,6 @@ pos partition(vector<int> & v,pos lo,pos hi)
     exchange(lo,j);
     return j;
 }
-
-
 void quick(vector<int> & v,pos lo,pos hi)
 {
     if(lo >= hi)
@@ -257,6 +257,5 @@ void heap(vector<int> & v)
         exchange(v,0,--n);
         sink(v,1,n);
     }
-
 }
 #endif //SORTING_SORTING_H
