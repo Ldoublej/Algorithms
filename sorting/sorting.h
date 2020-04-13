@@ -20,7 +20,7 @@ void print_vector(const vector<int> & v)
     copy(v.cbegin(),v.cend(),out);
     cout << endl;
 }
-void exchange(int lsh, int rsh, vector<int> & v)
+void exchange(vector<int> & v,int lsh, int rsh)
 {
     int temp = v.at(lsh);
     v.at(lsh) = v.at(rsh);
@@ -53,7 +53,7 @@ void selection(vector<int> & v)
         for(int j = i + 1;j < v.size();++j)
         {
             if(v.at(j) < v.at(min))
-                exchange(min,j,v);
+                exchange(v,min,j);
         }
     }
 }
@@ -149,7 +149,7 @@ void shell(vector<int> & v)
 }
 
 
-void merge(vector<int> & v,pos b,pos m,pos e)
+void merge_vector(vector<int> & v,pos b,pos m,pos e)
 {
     if(e == v.end())
         e = v.end() - 1;
@@ -173,16 +173,16 @@ void merge(vector<int> & v,pos b,pos m,pos e)
             v.at(delta + i) = v_copy.at(rsh++);
     }
 }
-void merge_sorting(vector<int> & v,pos b,pos e)
+void merge(vector<int> & v,pos b,pos e)
 {
     if(e == v.end())
         e -= 1;
     if(e - b == 0)
         return;
     pos m = b + (e - b) / 2;
-    merge_sorting(v,b,m);
-    merge_sorting(v,m+1,e);
-    merge(v,b,m,e);
+    merge(v,b,m);
+    merge(v,m+1,e);
+    merge_vector(v,b,m,e);
 }
 
 void quick_3way(vector<int> & v,pos lo,pos hi)
@@ -233,4 +233,30 @@ void quick(vector<int> & v,pos lo,pos hi)
     quick(v,j+1,hi);
 }
 
+
+void sink(vector<int> & v,int k,int n)
+{
+    while(2*k <= n)
+    {
+        int j = 2*k;
+        if(j < n && v.at(j-1) < v.at(j)) ++j;
+        if(v.at(k-1) > v.at(j-1)) break;
+        exchange(v,k-1,j-1);
+        k = j;
+    }
+}
+void heap(vector<int> & v)
+{
+    int n = v.size();
+    for(int i = n/2;i >= 1;--i)
+    {
+        sink(v,i,n);
+    }
+    while(n > 1)
+    {
+        exchange(v,0,--n);
+        sink(v,1,n);
+    }
+
+}
 #endif //SORTING_SORTING_H
